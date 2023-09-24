@@ -1,0 +1,17 @@
+
+ @swagger
+ /note:
+   get:
+     summary: Get all notes
+     security:
+       - jwt: []  # Use JWT for authentication
+     responses:
+       200:
+         description: List of notes
+     components:
+       securitySchemes:
+         jwt:
+           type: apiKey
+           in: header
+           name: Authorization
+

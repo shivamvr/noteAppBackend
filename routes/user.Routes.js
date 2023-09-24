@@ -11,6 +11,33 @@ userRouter.use(cors());
 
 const bcrypt = require('bcrypt')
 
+/**
+ * @swagger
+ * /user/register:
+ *   post:
+ *     summary: Create a new note
+ *     security:
+ *       - jwt: []  # Use JWT for authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               pass:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: New User register successfully
+ *       401:
+ *         description: Invalid request
+ */
+
 // Register
 
 userRouter.post("/register", async (req, res) => {
@@ -28,6 +55,37 @@ userRouter.post("/register", async (req, res) => {
 })
 
 // Login
+
+
+/**
+ * @swagger
+ * /user/login:
+ *   post:
+ *     summary: User login
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               pass:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User logged in successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *       401:
+ *         description: Unauthorized
+ */
 
 userRouter.post("/login", async (req, res) => {
     const { email, pass } = req.body
