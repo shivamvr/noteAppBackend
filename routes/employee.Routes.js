@@ -31,7 +31,7 @@ employeeRouter.post("/add", async (req, res) => {
 
 // employeeRouter.get('/', async (req, res) => {
 //     try {
-//         const employee = await EmployeeModel.find({ name: req.body.name })
+        // const employee = await EmployeeModel.find({ name: req.body.name })
 //         res.status(200).send(employee)
 //     } catch (err) {
 //         res.send({ "Error": err })
@@ -41,16 +41,13 @@ employeeRouter.post("/add", async (req, res) => {
 
 // Pagination and filtering route
 
-employeeRouter.get('/', async (req, res) => {
-    console.log('hi')
-
-    const page = parseInt(req.query.page) || 1;
+employeeRouter.get('/', async (req, res) => {    const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 5;
     const department = req.query.department; // Get department from query parameter
-
     const query = department ? { department: department } : {}; // Construct query based on department parameter
-
+    
     try {
+        const allEmployee = await EmployeeModel.find({ name: req.body.name })
         const employees = await EmployeeModel.find(query)
             .limit(limit)
             .skip((page - 1) * limit)
@@ -59,6 +56,7 @@ employeeRouter.get('/', async (req, res) => {
         res.json({
             data: employees,
             page: page,
+            totalPage: Math.ceil(allEmployee.length/limit),
             limit: limit
         });
     } catch (error) {
