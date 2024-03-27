@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
             if (decoded) {
                 console.log('decoded',decoded)
                 req.body.userID = decoded.userID
-                req.body.username = decoded.username
+                req.body.name = decoded.name
                 next()
             } else {
                 res.send({ "Error": err })

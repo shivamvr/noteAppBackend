@@ -13,11 +13,11 @@ const bcrypt = require('bcrypt')
 
 // Register
 
-userRouter.post("/register", async (req, res) => {
-    const { username, email, pass } = req.body
+userRouter.post("/signup", async (req, res) => {
+    const { name, email, pass } = req.body
     try {
         bcrypt.hash(pass, 5, async (err, hash) => {
-            const user = new UserModel({ username, email, pass: hash })
+            const user = new UserModel({ name, email, pass: hash })
             await user.save()
             res.status(200).send({ "msg": "A new user registered" })
         })
@@ -41,8 +41,8 @@ userRouter.post("/login", async (req, res) => {
     try {
         bcrypt.compare(pass, user.pass, async (err, result) => {
             if (result) {
-                const token = jwt.sign({userId: user._id, username: user.username},'admin')
-                res.status(200).send({ "msg": "Login successfully", token,username: user.username })
+                const token = jwt.sign({userId: user._id, name: user.name},'admin')
+                res.status(200).send({ "msg": "Login successfully", token,name: user.name })
             } else {
                 res.status(400).send({ "Error": err })
 

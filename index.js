@@ -2,7 +2,7 @@
 
 const express = require('express')
 const {userRouter} = require('./routes/user.Routes')
-const {noteRouter} = require('./routes/note.Routes')
+const {employeeRouter} = require('./routes/employee.Routes')
 const cors = require('cors')
 const {connection} = require('./db')
 
@@ -13,8 +13,9 @@ app.get('/',(req,res)=>{
     res.status(200).send({"msg":"this is the homepage"})
 })
 
-app.use('/user',userRouter)
-app.use('/note',noteRouter)
+
+app.use('/',userRouter)
+app.use('/employees',employeeRouter)
 
 app.listen(8080, async()=>{
      try{
