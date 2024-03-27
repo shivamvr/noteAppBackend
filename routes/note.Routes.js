@@ -12,33 +12,7 @@ noteRouter.use(cors());
 
 // post note
 
-
 noteRouter.use(auth)
-
-/**
- * @swagger
- * /note/create:
- *   post:
- *     summary: Create a new note
- *     security:
- *       - jwt: []  # Use JWT for authentication
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *               content:
- *                 type: string
- *     responses:
- *       201:
- *         description: Note created successfully
- *       401:
- *         description: Unauthorized
- */
 
 noteRouter.post("/create", async (req, res) => {
     const payload = req.body
@@ -53,33 +27,6 @@ noteRouter.post("/create", async (req, res) => {
     }
 })
 
-/**
- * @swagger
- * definitions:
- *   note:
- *     type: object
- *     properties:
- *       id:
- *         type: integer
- *       title:
- *         type: string
- *       content:
- *         type: string
- */
-
-/**
- * @swagger
- * /note:
- *   get:
- *     summary: Get all note
- *     security:
- *       - jwt: []  # Use JWT for authentication
- *     responses:
- *       200:
- *         description: List of todos
- */
-
-
 noteRouter.get('/', async (req, res) => {
     try {
         const notes = await NoteModel.find({ username: req.body.username })
@@ -90,40 +37,6 @@ noteRouter.get('/', async (req, res) => {
 })
 
 // patch
-
-/**
- * @swagger
- * /note/update/{id}:
- *   patch:
- *     summary: Update a note by ID
- *     security:
- *       - jwt: []  # Use JWT for authentication
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID of the note to update
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *               content:
- *                 type: string
- *     responses:
- *       200:
- *         description: Note updated successfully
- *       401:
- *         description: Unauthorized
- *       404:
- *         description: Note not found
- */
 
 noteRouter.patch("/update/:id", async (req, res) => {
     const payload = req.body
@@ -144,30 +57,6 @@ noteRouter.patch("/update/:id", async (req, res) => {
 })
 
 // delete
-
-
-/**
- * @swagger
- * /note/delete/{id}:
- *   delete:
- *     summary: Delete a note by ID
- *     security:
- *       - jwt: []  # Use JWT for authentication
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID of the note to delete
- *     responses:
- *       204:
- *         description: Note deleted successfully
- *       401:
- *         description: Unauthorized
- *       404:
- *         description: Note not found
- */
 
 noteRouter.delete("/delete/:id", async (req, res) => {
     const id = req.params.id
